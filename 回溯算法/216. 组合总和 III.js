@@ -1,34 +1,27 @@
 /**
- * @param {number} k
- * @param {number} n
+ * @param {number[]} nums
  * @return {number[][]}
  */
-var combinationSum3 = function (k, n) {
-    let result = []
-    let path = []
-    const handler = (n, k, startIndex) => {
-        // 终止条件
-        if (path.length === k) {
-            let sum = 0
-            for (let p of path) {
-                sum += p;
-            }
-            if (sum === n) {
-                result.push([...path])
-                return;
-            }else{
-                return
-            }
-            
-        }
+var permute = function (nums) {
+    let path = [],
+        result = [];
 
-        // 循环递归
-        for (let i = startIndex; i <= 9 - (k - path.length) + 1; i++) {
-            path.push(i);
-            handler(n, k, i + 1);
-            path.pop();
+    const backtrucking = function (nums, used) {
+        if (path.length === nums.length) {
+            result.push(Array.from(path));
+            return;
         }
-    }
-    handler(n, k, 1)
-    return result
+        for (let i = 0; i < nums.length; i++) {
+            if (used[i]) continue;
+            used[i] = true;
+
+            path.push(nums[i]);
+            backtrucking(nums, used);
+            path.pop();
+            used[i] = false;
+        }
+    };
+
+    backtrucking(nums, []);
+    return result;
 };
