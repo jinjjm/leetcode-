@@ -19,6 +19,7 @@ var fib = function(n) {
     console.log(dp)
     return dp[n]
 };
+
 // 此题动态规划优化，不必存储整个数组，只需要两个数即可
 var fib = function(n) {
     if(n<2) return n
